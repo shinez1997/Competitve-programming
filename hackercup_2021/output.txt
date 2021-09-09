@@ -1,0 +1,24 @@
+Case #1: row: [-1 2 ]
+col: [1 -1 ]
+1 1
+Case #2: row: [1 -1 ]
+col: [1 -1 ]
+1 2
+Case #3: row: [3 3 3 ]
+col: [3 3 3 ]
+3 6
+Case #4: row: [-1 2 -1 ]
+col: [2 -1 -1 ]
+2 2
+Case #5: row: [-1 1 -1 ]
+col: [-1 1 -1 ]
+1 2
+Case #6: row: [-1 -1 -1 ]
+col: [-1 -1 -1 ]
+Impossible
+Case #7: row: [3 -1 2 -1 ]
+col: [-1 -1 2 -1 ]
+2 2
+Case #8: row: [-1 1 -1 -1 1 ]
+col: [-1 1 -1 -1 -1 ]
+1 3
