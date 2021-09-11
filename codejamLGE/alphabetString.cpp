@@ -42,7 +42,22 @@ sim dor(const c&) { ris; }
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 void test_case() {
-
+	string s;
+	cin >> s;
+	int n = s.length();
+	//ll ans = 0;
+	vector<string> a;
+	for(int i = 0; i < n; ++i) {
+		string cur(26, '0');
+		for(int j = i; j < n; ++j) {
+			cur[s[j]-'A'] = '1';
+			a.push_back(cur);
+		}
+	}
+	sort(a.begin(), a.end());
+	a.resize(unique(a.begin(), a.end()) - a.begin());
+	debug() << imie(a);
+	cout << a.size() << endl;
     
 }
 

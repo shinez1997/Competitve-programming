@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -42,7 +43,22 @@ sim dor(const c&) { ris; }
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 void test_case() {
-
+	int n;
+	cin >> n;
+	unordered_set<int> a;
+	unordered_set<int> b;
+	for(int i = 0; i < n; ++i)
+	{
+		int x, y;
+		cin >> x >> y;
+		a.insert(x);
+		b.insert(y);
+	}
+	int good = a.size() * b.size();
+	if(good == n)
+		cout << "BALANCED\n";
+	else 
+		cout << "NOT BALANCED\n";
     
 }
 
