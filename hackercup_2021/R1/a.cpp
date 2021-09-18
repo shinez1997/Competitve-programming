@@ -41,9 +41,75 @@ sim dor(const c&) { ris; }
 #endif
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
-void test_case() {
+const int L = 0, R = 1;
 
-    
+const int mod = 1e9 + 7;
+void add(int& a, int b) {
+	a += b;
+	if(a >= mod)
+		a-=mod;
+	if(a < 0)
+		a += mod;
+}
+void test_case() {
+	int n;
+	string s;
+	cin >> n >> s;
+	vector<int> pref(n);
+	vector<int> suf(n);
+	pref[0] = 0;
+	int ans = 0;
+	{
+		int cur = -1;
+		if(s[n-1] == 'O')
+			cur = 0;
+		if(s[0] == 'X')
+			cur = 1;
+		for(int i = n - 2; i >= 0; --i) {
+		suf[i] = suf[i+1];
+		if(s[i] == 'O') {
+			if(cur == 1) {
+				add(suf[i], 1);
+				
+			}
+			cur = 0;
+		}
+		else if(s[i] == 'X') {
+			if(cur == 0) {
+				add(suf[i], 1);
+				
+			}
+			cur = 1;
+		}
+		}
+	}
+	int cur = -1;
+	if(s[0] == 'O')
+		cur = 0;
+	if(s[0] == 'X')
+		cur = 1;
+	for(int i = 1; i < n; ++i) {
+		pref[i] = pref[i-1];
+		if(s[i] == 'O') {
+			if(cur == 1) {
+				add(pref[i], 1);
+			}
+			cur = 0;
+		}
+		else if(s[i] == 'X') {
+			if(cur == 0) {
+				add(pref[i], 1);
+			}
+			cur = 1;
+		}
+		add(ans, pref[i]);
+		for(int j = i - 1; j >= 1; --j) {
+			add(ans, min(suf[j] - suf[i], pref[i] - pref[j]));
+		}
+	}
+	
+	cout << ans << endl;
+	debug() << imie(pref) imie(suf);
 }
 
 
@@ -53,6 +119,10 @@ int main() {
 	cout.tie(NULL);
 	int t;
     cin >> t;
-    while(t--) test_case();
+    for(int i = 1; i <= t; ++i) {
+		cout << "Case #" << i << ": ";
+		test_case();
+	}
 	return 0;
 }
+

@@ -42,8 +42,18 @@ sim dor(const c&) { ris; }
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 void test_case() {
-
-    
+	int n, s;
+	cin >> n >> s;
+	if(2* s < n)
+	{
+		cout << "0\n";
+		return;
+	}
+	int m = n / 2;
+	if(n&1) 
+		cout << s / (n - m) << endl;
+    else 
+		cout << s /(n - m + 1) << endl;
 }
 
 

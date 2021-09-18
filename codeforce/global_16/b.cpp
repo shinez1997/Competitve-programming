@@ -42,8 +42,37 @@ sim dor(const c&) { ris; }
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 void test_case() {
-
-    
+	string s;
+	cin >> s;
+	int cur = -1;
+	int cnt = 0;
+	for(char c : s) {
+		if(c == '1') {
+			if(cur == 0)
+				++cnt;
+			cur = 1;
+		}
+		if(c == '0') {
+			if(cur == 1)
+				++cnt;
+			cur = 0;
+		}
+	}
+	if(cnt == 0) {
+		if(s[0] == '1')
+			cout << "0\n";
+		else
+			cout << "1\n";
+	}
+    else if(cnt == 1) {
+		cout << "1\n";
+	}
+	else if(cnt == 2 && s[0] == '1') {
+		cout << "1\n";
+	}
+	else {
+		cout << "2\n";
+	}
 }
 
 

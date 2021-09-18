@@ -42,8 +42,52 @@ sim dor(const c&) { ris; }
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 void test_case() {
-
-    
+	int n;
+	cin >> n;
+	string s, t;
+	cin >> s >> t;
+	vector<int> a(n);
+	for(int i = 0; i < n; ++i) {
+		if(s[i] != t[i])
+			a[i] = 2;
+		else {
+			a[i] = (s[i] == '0' ? 1 : 0);
+		}
+	}
+	ll ans = 0;
+	int i = 0;
+	while(i < n) {
+		//debug() << i;
+		if(a[i] == 2) {
+			ans += 2;
+			i++;
+		}
+		else if(a[i] == 0) {
+			if(i == n - 1)
+				i++;
+			else if(a[i+1] == 1) {
+				ans += 2;
+				i += 2;
+			}
+			else
+				i++;
+		}
+		else if(a[i] == 1) {
+			if(i == n -1) {
+				++ans;
+				i++;
+			}
+			else if(a[i+1] == 0) {
+				ans += 2;
+				i += 2;
+			}
+			else {
+				ans++;
+				i++;
+			}
+		}
+	}
+    cout << ans << endl;
 }
 
 

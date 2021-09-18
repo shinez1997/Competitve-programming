@@ -42,8 +42,39 @@ sim dor(const c&) { ris; }
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
 void test_case() {
-
+	int n, m;
+	cin >> n >> m;
+	vector<pii> a(n * m);
+	for(int i = 0; i < n * m; ++i) {
+		cin >> a[i].F;
+		a[i].S = i;
+	}
+	//sort(a.begin(), a.end());
+	sort(a.begin(), a.end(), [&](pii x, pii y) {
+		if(x.F < y.F)
+			return true;
+		if(x.F > y.F)
+			return false;
+		return x.S > y.S;
+	});
+    vector<int> order(n * m);
     
+    for(int i = 0; i < n * m; ++i) {
+		order[a[i].S] = i;
+	}
+	//debug() << imie(order);
+	vector<bool> bad(n * m);
+	ll ans = 0;
+	for(int i = 0; i < n * m; ++i) {
+		int d = order[i];
+		int l = d / m;
+		for(int j = l * m; j < d; ++j) {
+			if(bad[j])
+				++ans;
+		}
+		bad[d] = true;
+	}	
+	cout << ans << endl;
 }
 
 

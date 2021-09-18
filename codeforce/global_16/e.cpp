@@ -41,9 +41,79 @@ sim dor(const c&) { ris; }
 #endif
 };
 #define imie(...) " [" << #__VA_ARGS__ ": " << (__VA_ARGS__) << "] "
+vector<vector<int>> adj;
+vector<bool> isLeaf;
+vector<bool> isBud;
+vector<int> noL;
+void dfs(int u, int p) {
+	//isLeaf[u] = false;
+	if(adj[u].size() == 1 && u != 0) {
+		isLeaf[u] = true;
+		isBud[u] = false;
+		return;
+	}
+	for(int& v : adj[u]) {
+		if(v == p)
+			continue;
+		dfs(v, u);
+		if(isLeaf[v] != true) {
+			isBud[u] = false;
+		}
+		else {
+			noL[u]++;
+		}
+	}
+}
 void test_case() {
-
-    
+	int n;
+	cin >> n;
+	adj.clear();
+	isLeaf.clear();
+	isBud.clear();
+	noL.clear();
+	adj.resize(n);
+	isLeaf.resize(n, 0);
+	isBud.resize(n, true);
+	noL.resize(n);
+	isBud[0] = false;
+	for(int i = 0; i < n - 1; ++i) {
+		int x, y;
+		cin >> x >> y;
+		x--;
+		y--;
+		adj[x].push_back(y);
+		adj[y].push_back(x);
+	}
+    dfs(0, -1);
+    //debug() << imie(isBud);
+    //debug() << imie(isLeaf);
+    //debug() << imie(noL);
+    int cntLeaf = 0;
+    int cntBud = 0;
+	for(int i = 0; i < n; ++i) {
+		if(isLeaf[i])
+			++cntLeaf;
+		if(isBud[i])
+			++cntBud;
+	}
+	if(cntBud == 1) {
+		for(int i = 0; i < n; ++i) {
+			if(isBud[i])
+				cout << noL[i] << endl;
+		}
+	}
+	else {
+		ll ans = 0;
+		for(int i = 0; i < n; ++i) {
+			if(isBud[i])
+				ans += noL[i] - 1;
+			else {
+				if(noL[i])
+					ans += noL[i]; 
+			}
+		}
+		cout << ans + 1 <<endl;
+	}
 }
 
 
